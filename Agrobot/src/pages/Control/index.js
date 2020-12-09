@@ -14,7 +14,7 @@ import {CommunicationContext} from '../../context/communication';
 import Style from './style.js';
 
 const heightScreen = Dimensions.get('window').height;
-export default function Control({navigation, route}) {
+export default function Control({navigation}) {
   const {
     setSteer,
     setSpeed,

@@ -127,7 +127,7 @@ export default class AxisPad extends Component {
   onTouchStart(evt) {
     const identifier = evt.nativeEvent.identifier;
     const touchItem = this.getTouchPoint(evt.nativeEvent.touches, identifier);
-    console.log(evt.nativeEvent.touches, identifier, touchItem);
+    // console.log(evt.nativeEvent.touches, identifier, touchItem);
 
     if (typeof identifier === 'number' && touchItem) {
       const {pageX, pageY} = touchItem;

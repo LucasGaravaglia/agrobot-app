@@ -26,6 +26,7 @@ export const DataContextProvider = ({children}) => {
   const handleModuleRobotSwitch = () => {
     if (connected) {
       setModuleRobot(!moduleRobot);
+      handleAutoModeData();
     }
   };
 
@@ -37,6 +38,7 @@ export const DataContextProvider = ({children}) => {
 
   const handleAutoModeSwitch = () => {
     if (connected) {
+      handleAutoModeData(true);
       setAutoMode(!autoMode);
     }
   };
@@ -50,6 +52,38 @@ export const DataContextProvider = ({children}) => {
       steer,
       speed,
     });
+  }
+
+  function handleAutoModeData(flag = false) {
+    var obj = {};
+    if (flag) {
+      obj = {
+        limit: autoModeData.limit,
+        steer: autoModeData.steer,
+        speed: autoModeData.speed,
+        correctionsMovements: autoModeData.correctionsMovements,
+        correctionFactor: autoModeData.correctionFactor,
+        detectDistance: autoModeData.detectDistance,
+        moveTime: autoModeData.moveTime,
+        stopTime: autoModeData.stopTime,
+        moduleRobot: moduleRobot,
+        autoMode: !autoMode,
+      };
+    } else {
+      obj = {
+        limit: autoModeData.limit,
+        steer: autoModeData.steer,
+        speed: autoModeData.speed,
+        correctionsMovements: autoModeData.correctionsMovements,
+        correctionFactor: autoModeData.correctionFactor,
+        detectDistance: autoModeData.detectDistance,
+        moveTime: autoModeData.moveTime,
+        stopTime: autoModeData.stopTime,
+        moduleRobot: moduleRobot,
+        autoMode: autoMode,
+      };
+    }
+    setAutoModeData(obj);
   }
 
   async function loadDataFromStorage() {
@@ -77,25 +111,11 @@ export const DataContextProvider = ({children}) => {
 
   useEffect(() => {
     handleSendData();
-    console.log(
-      '\nlimit ' +
-        limit +
-        '\nmoduleRobot ' +
-        moduleRobot +
-        '\nautoMode ' +
-        autoMode +
-        '\npower ' +
-        power +
-        '\nspeed ' +
-        speed +
-        '\nsteer ' +
-        steer,
-    );
-  }, [limit, moduleRobot, autoMode, power, speed, steer]);
+  }, [limit, moduleRobot, power, speed, steer]);
 
   useEffect(() => {
     sendAutoModeParams(autoModeData);
-  }, [autoMode, autoModeData]);
+  }, [autoMode]);
 
   useEffect(() => {
     loadDataFromStorage();
@@ -133,6 +153,6 @@ const defaultAutoModeData = {
   detectDistance: '1.5',
   moveTime: '0',
   stopTime: '0',
-  moduleRobot: true,
+  moduleRobot: false,
   autoMode: false,
 };

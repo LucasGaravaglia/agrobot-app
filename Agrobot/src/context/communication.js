@@ -7,7 +7,7 @@ export const CommunicationContext = createContext({});
 export function CommunicationProvider({children}) {
   const [address, setAddress] = useState('192.168.16.105');
   const [port, setPort] = useState('3000');
-  const [connected, setConnected] = useState(true);
+  const [connected, setConnected] = useState(false);
   const [client, setClient] = useState(io(''));
 
   const sendControl = (data) => {
@@ -32,13 +32,13 @@ export function CommunicationProvider({children}) {
   };
 
   const updateAddress = async (value) => {
-    await AsyncStorage.setItem('address', value);
     setAddress(value);
+    await AsyncStorage.setItem('address', value);
   };
 
   const updatePort = async (value) => {
-    await AsyncStorage.setItem('port', value);
     setPort(value);
+    await AsyncStorage.setItem('port', value);
   };
 
   const connect = () => {

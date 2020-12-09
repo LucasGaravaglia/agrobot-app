@@ -50,8 +50,8 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
   },
   buttonIcon: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
   },
   buttonMenu: {
     borderWidth: 0,
