@@ -1,14 +1,14 @@
-import { View, Text, Image } from "react-native";
-import Styles from "./styles";
-import React from "react";
+import {View, Text, Image} from 'react-native';
+import Styles from './styles';
+import React from 'react';
 
-import constLabiotImg from "./resources/labiot.png";
-import constPtiImg from "./resources/pti.png";
-import constUnioesteImg from "./resources/unioeste.png";
-import constItaipuImg from "./resources/Itaipu.png";
-import constHmccImg from "./resources/hmcc.jpeg";
-import constReceitaImg from "./resources/receitaFederal.png";
-import constMunicipalImg from "./resources/municipal.png";
+import constLabiotImg from './resources/labiot.png';
+import constPtiImg from './resources/pti.png';
+import constUnioesteImg from './resources/unioeste.png';
+import constItaipuImg from './resources/Itaipu.png';
+import constHmccImg from './resources/hmcc.jpeg';
+import constReceitaImg from './resources/receitaFederal.png';
+import constMunicipalImg from './resources/municipal.png';
 
 export default function footer() {
   return (
@@ -26,7 +26,7 @@ export default function footer() {
       </View>
 
       <View>
-        <Text style={Styles.versionText}>V {global.version}</Text>
+        <Text style={Styles.versionText}>Beta</Text>
       </View>
     </View>
   );

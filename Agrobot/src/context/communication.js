@@ -1,13 +1,13 @@
-import React, {createContext, useState, useEffect} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import React, {useState, useEffect, createContext} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import io from 'socket.io-client';
 
-export const CommunicationContext = createContext();
+export const CommunicationContext = createContext({});
 
-export const CommunicationProvider = ({children}) => {
-  const [address, setAddress] = useState('192.168.0.109');
+export function CommunicationProvider({children}) {
+  const [address, setAddress] = useState('192.168.16.105');
   const [port, setPort] = useState('3000');
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(true);
   const [client, setClient] = useState(io(''));
 
   const sendControl = (data) => {
@@ -18,9 +18,7 @@ export const CommunicationProvider = ({children}) => {
 
   const sendAutoModeParams = (data) => {
     if (connected) {
-      client.emit('auto_mode_params_update', {
-        data,
-      });
+      client.emit('auto_mode_params_update', data);
     }
   };
 
@@ -43,10 +41,9 @@ export const CommunicationProvider = ({children}) => {
     setPort(value);
   };
 
-  function connect() {
+  const connect = () => {
     client.close();
     const newClient = io(`http://${address}:${port}`);
-
     newClient.on('disconnect', () => {
       setConnected(false);
       console.log('Cliente desconectado');
@@ -63,7 +60,7 @@ export const CommunicationProvider = ({children}) => {
     });
 
     setClient(newClient);
-  }
+  };
 
   useEffect(() => {
     loadInitialConfig();
@@ -82,14 +79,14 @@ export const CommunicationProvider = ({children}) => {
     <CommunicationContext.Provider
       value={{
         sendAutoModeParams,
-        sendControl,
         address,
         port,
         updateAddress,
         updatePort,
+        sendControl,
         connected,
       }}>
       {children}
     </CommunicationContext.Provider>
   );
-};
+}

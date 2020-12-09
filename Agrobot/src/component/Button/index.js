@@ -1,30 +1,13 @@
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 
-function isIcon({ name, size, color, children }) {
-  if (name === null)
-    return <Text style={[Styles.text, styleText]}>{children}</Text>;
-  else return <Icon name={name} size={size} color={color} />;
-}
-
-export default function button({
-  onPress,
-  style,
-  styleText,
-  children,
-  name = null,
-  size = 30,
-  color,
-}) {
+export default function button({onPress, style, styleText, children}) {
   return (
     <TouchableOpacity
       delayPressIn={0}
       style={[Styles.button, style]}
       onPress={onPress}>
-      <isIcon name={name} size={size} color={color}>
-        {children}
-      </isIcon>
+      <Text style={[Styles.text, styleText]}>{children}</Text>
     </TouchableOpacity>
   );
 }
@@ -40,5 +23,8 @@ const Styles = StyleSheet.create({
     justifyContent: 'center',
     width: 140,
     height: 90,
+    borderColor: '#314159',
+    borderWidth: 3,
+    borderRadius: 20,
   },
 });

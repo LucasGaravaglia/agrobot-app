@@ -9,16 +9,15 @@ import {CommunicationContext} from './communication';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 
-export const DataContext = createContext();
+export const DataContext = createContext({});
 
 export const DataContextProvider = ({children}) => {
   const {sendControl, sendAutoModeParams, connected} = useContext(
     CommunicationContext,
   );
-
-  const steer = useRef(0);
-  const speed = useRef(0);
-  const [limit, setLimit] = useState(0);
+  const [steer, setSteer] = useState(0);
+  const [speed, setSpeed] = useState(0);
+  const [limit, setLimit] = useState(50);
   const [moduleRobot, setModuleRobot] = useState(false);
   const [autoMode, setAutoMode] = useState(false);
   const [power, setPower] = useState(false);
@@ -48,8 +47,8 @@ export const DataContextProvider = ({children}) => {
       moduleRobot,
       autoMode,
       power,
-      steer: steer.current,
-      speed: speed.current,
+      steer,
+      speed,
     });
   }
 
@@ -78,7 +77,21 @@ export const DataContextProvider = ({children}) => {
 
   useEffect(() => {
     handleSendData();
-  }, [limit, moduleRobot, autoMode, power]);
+    console.log(
+      '\nlimit ' +
+        limit +
+        '\nmoduleRobot ' +
+        moduleRobot +
+        '\nautoMode ' +
+        autoMode +
+        '\npower ' +
+        power +
+        '\nspeed ' +
+        speed +
+        '\nsteer ' +
+        steer,
+    );
+  }, [limit, moduleRobot, autoMode, power, speed, steer]);
 
   useEffect(() => {
     sendAutoModeParams(autoModeData);
@@ -99,11 +112,12 @@ export const DataContextProvider = ({children}) => {
         limit,
         autoMode,
         power,
-        steer,
-        speed,
+        setSteer,
+        setSpeed,
         send: handleSendData,
         updateModeData,
         autoModeData,
+        setAutoMode,
       }}>
       {children}
     </DataContext.Provider>
