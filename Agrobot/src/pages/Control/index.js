@@ -74,14 +74,14 @@ export default function Control({navigation}) {
             <ButtonIcon
               name="power-off"
               size={30}
-              color={power ? '#0f0' : '#f00'}
+              color={power ? '#0f0' : '#ff6666'}
               onPress={handlePowerSwitch}
               style={Style.buttonIcon}
             />
             <ButtonIcon
               name="puzzle-piece"
               size={30}
-              color={moduleRobot ? '#0f0' : '#f00'}
+              color={moduleRobot ? '#0f0' : '#ff6666'}
               onPress={handleModuleRobotSwitch}
               style={Style.buttonIcon}
             />

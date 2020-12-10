@@ -17,7 +17,7 @@ export default StyleSheet.create({
     height: 62,
     width: 200,
     borderWidth: 3,
-    backgroundColor: '#ff3333',
+    backgroundColor: '#ff4444',
   },
   textButtonStop: {
     fontSize: 15,
