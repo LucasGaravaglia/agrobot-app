@@ -28,12 +28,16 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 5,
+    shadowColor: '#888',
+    backgroundColor: '#fff',
     elevation: 2,
   },
   buttonSave: {
     width: widthScreen * 0.5,
     height: heightScreen * 0.1,
     shadowRadius: 5,
+    shadowColor: '#888',
+    backgroundColor: '#fff',
     elevation: 2,
   },
   textButtonSave: {
