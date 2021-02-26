@@ -30,6 +30,12 @@ export default function Control({navigation}) {
   } = React.useContext(DataContext);
 
   const {connected} = React.useContext(CommunicationContext);
+
+  React.useEffect(() => {
+    if (!connected) {
+      navigation.navigate
+    }
+  }, []);
   function handleSetLimitPlus() {
     if (limit < 100) {
       setLimit(limit + 1);

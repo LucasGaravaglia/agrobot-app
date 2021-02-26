@@ -5,8 +5,8 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import Control from './pages/Control';
 import Communication from './pages/Communication';
-SetAutoParameters;
 import SetAutoParameters from './pages/SetAutoParameters';
+import LoadingPage from './pages/LoadingPage';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,6 +29,7 @@ export default App = () => (
         name="Configuração parâmetros"
         component={SetAutoParameters}
       />
+      <Drawer.Screen name="Instruções" component={LoadingPage} />
     </Drawer.Navigator>
   </NavigationContainer>
 );
