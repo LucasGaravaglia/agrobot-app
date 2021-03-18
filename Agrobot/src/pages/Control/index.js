@@ -70,8 +70,8 @@ export default function Control({navigation}) {
             resetOnRelease={true}
             autoCenter={false}
             onValue={({x, y}) => {
-              setSpeed(Number(x * 100).toPrecision(3));
-              setSteer(Number(y * 100).toPrecision(3));
+              setSpeed(Number(y * -100).toPrecision(3));
+              setSteer(Number(x * 100).toPrecision(3));
             }}
           />
         </View>
