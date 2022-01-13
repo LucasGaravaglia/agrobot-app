@@ -45,7 +45,7 @@ export const DataContextProvider = ({children}) => {
 
   function handleSendData() {
     sendControl({
-      limit,
+      limit: limit / 100,
       moduleRobot,
       autoMode,
       power,
