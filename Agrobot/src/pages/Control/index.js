@@ -33,7 +33,7 @@ export default function Control({navigation}) {
 
   React.useEffect(() => {
     if (!connected) {
-      navigation.navigate
+      navigation.navigate;
     }
   }, []);
   function handleSetLimitPlus() {
@@ -70,8 +70,9 @@ export default function Control({navigation}) {
             resetOnRelease={true}
             autoCenter={false}
             onValue={({x, y}) => {
-              setSpeed(Number(y * -100).toPrecision(3));
-              setSteer(Number(x * 100).toPrecision(3));
+              console.log(x, y);
+              setSpeed(Number(y * -1).toPrecision(3));
+              setSteer(Number(x).toPrecision(3));
             }}
           />
         </View>

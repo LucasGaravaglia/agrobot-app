@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 export const CommunicationContext = createContext({});
 
 export function CommunicationProvider({children}) {
-  const [address, setAddress] = useState('192.168.16.105');
+  const [address, setAddress] = useState('192.168.1.2');
   const [port, setPort] = useState('3000');
   const [connected, setConnected] = useState(false);
   const [client, setClient] = useState(io(''));
