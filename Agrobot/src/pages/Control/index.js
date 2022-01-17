@@ -72,7 +72,7 @@ export default function Control({navigation}) {
             onValue={({x, y}) => {
               console.log(x, y);
               setSpeed(Number(y * -1).toPrecision(3));
-              setSteer(Number(x).toPrecision(3));
+              setSteer(Number(x * -1).toPrecision(3));
             }}
           />
         </View>
