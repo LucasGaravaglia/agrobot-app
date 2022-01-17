@@ -16,9 +16,10 @@ export default App = () => (
       initialRouteName="Control"
       drawerStyle={{backgroundColor: '#FFFFFF'}}
       screenOptions={{
-        activeBackgroundColor: '#efefef',
-        labelStyle: {color: '#000', fontWeight: 'bold'},
-        itemStyle: {
+        drawerActiveBackgroundColor: '#efefef',
+        drawerLabelStyle: {color: '#000', fontWeight: 'bold'},
+        headerShown: false,
+        drawerItemStyle: {
           borderBottomColor: '#000',
           borderBottomWidth: 2,
         },
