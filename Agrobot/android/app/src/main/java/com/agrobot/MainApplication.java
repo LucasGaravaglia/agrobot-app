@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
+import org.reactnative.maskedview.RNCMaskedViewPackage;
+import com.facebook.react.bridge.JSIModulePackage; // <- add
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -35,6 +38,11 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected String getJSMainModuleName() {
           return "index";
+        }
+
+        @Override
+        protected JSIModulePackage getJSIModulePackage() {
+          return new ReanimatedJSIModulePackage(); // <- add
         }
       };
 

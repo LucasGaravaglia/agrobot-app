@@ -15,7 +15,7 @@ export default App = () => (
     <Drawer.Navigator
       initialRouteName="Control"
       drawerStyle={{backgroundColor: '#FFFFFF'}}
-      drawerContentOptions={{
+      screenOptions={{
         activeBackgroundColor: '#efefef',
         labelStyle: {color: '#000', fontWeight: 'bold'},
         itemStyle: {
