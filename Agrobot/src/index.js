@@ -6,12 +6,8 @@ import {CommunicationProvider} from './context/communication';
 
 export default App = () => (
   <CommunicationProvider>
+    <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#fff" />
     <DataContextProvider>
-      <StatusBar
-        barStyle="dark-content"
-        hidden={false}
-        backgroundColor="#fff"
-      />
       <Routes />
     </DataContextProvider>
   </CommunicationProvider>

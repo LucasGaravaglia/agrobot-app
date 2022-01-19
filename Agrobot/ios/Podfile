@@ -18,6 +18,8 @@ target 'Agrobot' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
+  pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
+
   target 'AgrobotTests' do
     inherit! :complete
     # Pods for testing

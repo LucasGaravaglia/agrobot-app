@@ -1,8 +1,8 @@
 import {View, Text, Dimensions} from 'react-native';
 import React from 'react';
 import Slider from '@react-native-community/slider';
+import Joystick from 'multitouchjoystick';
 
-import Joystick from '../../component/Joystick';
 import Footer from '../../component/Footer';
 import ConnectedIndicator from '../../component/ConnectedIndicator';
 import Button from '../../component/Button';
@@ -12,12 +12,11 @@ import {DataContext} from '../../context/dataContext';
 import {CommunicationContext} from '../../context/communication';
 
 import Style from './style.js';
-
 const heightScreen = Dimensions.get('window').height;
 export default function Control({navigation}) {
   const {
-    setSteer,
     setSpeed,
+    setSteer,
     setLimit,
     limit,
     handleModuleRobotSwitch,
@@ -36,6 +35,11 @@ export default function Control({navigation}) {
       navigation.navigate;
     }
   }, []);
+  React.useEffect(() => {
+    if (!connected) {
+      navigation.navigate;
+    }
+  }, []);
   function handleSetLimitPlus() {
     if (limit < 100) {
       setLimit(limit + 1);
@@ -49,6 +53,7 @@ export default function Control({navigation}) {
   function handleStopButton() {
     setAutoMode(false);
   }
+
   return (
     <>
       <View style={Style.container}>
@@ -63,16 +68,15 @@ export default function Control({navigation}) {
         </View>
         <View style={Style.joystickContainer}>
           <Joystick
-            size={heightScreen * 0.21}
-            handlerSize={heightScreen * 0.14}
-            wrapperStyle={{backgroundColor: '#fff'}}
-            handlerStyle={{backgroundColor: '#000'}}
-            resetOnRelease={true}
-            autoCenter={false}
-            onValue={({x, y}) => {
+            backgroundColor={'#fff'}
+            ballColor="rgba(0, 0, 0, 0.8)"
+            ballRadius={40}
+            height={heightScreen * 0.3}
+            width={heightScreen * 0.3}
+            onValue={(x, y) => {
               console.log(x, y);
-              setSpeed(Number(y * -1).toPrecision(3));
-              setSteer(Number(x * -1).toPrecision(3));
+              setSpeed(y);
+              setSteer(x);
             }}
           />
         </View>

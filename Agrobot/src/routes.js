@@ -7,13 +7,14 @@ import Control from './pages/Control';
 import Communication from './pages/Communication';
 import SetAutoParameters from './pages/SetAutoParameters';
 import LoadingPage from './pages/LoadingPage';
+import PrecisionControl from './pages/PrecisionControl';
 
 const Drawer = createDrawerNavigator();
 
 export default App = () => (
   <NavigationContainer>
     <Drawer.Navigator
-      initialRouteName="Control"
+      initialRouteName="Controle"
       drawerStyle={{backgroundColor: '#FFFFFF'}}
       screenOptions={{
         drawerActiveBackgroundColor: '#efefef',
@@ -25,6 +26,7 @@ export default App = () => (
         },
       }}>
       <Drawer.Screen name="Controle" component={Control} />
+      <Drawer.Screen name="Precisão de controle" component={PrecisionControl} />
       <Drawer.Screen name="Comunicação" component={Communication} />
       <Drawer.Screen
         name="Configuração parâmetros"
