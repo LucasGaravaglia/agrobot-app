@@ -1,18 +1,20 @@
 import {View, Text, Dimensions} from 'react-native';
 import React from 'react';
-import Slider from '@react-native-community/slider';
 import Joystick from 'multitouchjoystick';
 
 import Footer from '../../component/Footer';
 import ConnectedIndicator from '../../component/ConnectedIndicator';
 import Button from '../../component/Button';
 import ButtonIcon from '../../component/buttonIcon';
+import Slider from '../../component/Slider';
 
 import {DataContext} from '../../context/dataContext';
 import {CommunicationContext} from '../../context/communication';
 
 import Style from './style.js';
-const heightScreen = Dimensions.get('window').height;
+import {useFocusEffect} from '@react-navigation/native';
+import Orientation from 'react-native-orientation';
+let heightScreen = Dimensions.get('window').height;
 export default function Control({navigation}) {
   const {
     setSpeed,
@@ -30,29 +32,16 @@ export default function Control({navigation}) {
 
   const {connected} = React.useContext(CommunicationContext);
 
+  useFocusEffect(() => {
+    Orientation.lockToPortrait();
+    heightScreen = Dimensions.get('window').height;
+  });
+
   React.useEffect(() => {
     if (!connected) {
       navigation.navigate;
     }
   }, []);
-  React.useEffect(() => {
-    if (!connected) {
-      navigation.navigate;
-    }
-  }, []);
-  function handleSetLimitPlus() {
-    if (limit < 100) {
-      setLimit(limit + 1);
-    }
-  }
-  function handleSetLimitMinus() {
-    if (limit > 0) {
-      setLimit(limit - 1);
-    }
-  }
-  function handleStopButton() {
-    setAutoMode(false);
-  }
 
   return (
     <>
@@ -105,24 +94,18 @@ export default function Control({navigation}) {
             />
           </View>
           <Text>Velocidade: {limit}</Text>
-          <View style={Style.sliderContainer}>
-            <ButtonIcon name="minus" size={15} onPress={handleSetLimitMinus} />
-            <Slider
-              maximumValue={100}
-              minimumValue={0}
-              value={limit}
-              onValueChange={(sliderValue) => {
-                setLimit(sliderValue);
-              }}
-              style={Style.slider}
-              step={1}
-            />
-            <ButtonIcon name="plus" size={15} onPress={handleSetLimitPlus} />
-          </View>
+          <Slider
+            value={limit}
+            setValue={setLimit}
+            styleContainer={Style.sliderContainer}
+            styleSlider={Style.slider}
+          />
           <Button
             style={Style.buttonStop}
             styleText={Style.textButtonStop}
-            onPress={handleStopButton}>
+            onPress={() => {
+              setAutoMode(false);
+            }}>
             Parar
           </Button>
         </View>
