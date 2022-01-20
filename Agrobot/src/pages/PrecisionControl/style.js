@@ -1,7 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
-
-const widthScreen = Dimensions.get('window').width;
-const heightScreen = Dimensions.get('window').height;
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -61,7 +58,7 @@ export default StyleSheet.create({
     marginTop: 8,
   },
   header: {
-    width: widthScreen,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',

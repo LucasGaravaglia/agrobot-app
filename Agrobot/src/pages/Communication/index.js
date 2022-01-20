@@ -1,17 +1,24 @@
 import {View, TextInput, Text} from 'react-native';
 import React from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import Orientation from 'react-native-orientation';
 
 import {CommunicationContext} from '../../context/communication';
 
 import Button from '../../component/Button';
+import Header from '../../component/Header';
 import Style from './style';
 
 export default function Communication({navigation}) {
   const {updateAddress, updatePort, port, address} = React.useContext(
     CommunicationContext,
   );
+  useFocusEffect(() => {
+    Orientation.lockToPortrait();
+  });
   return (
     <>
+      <Header navigation={navigation} />
       <View style={Style.container}>
         <Text style={Style.title}>Comunicação</Text>
         <View style={Style.containerInput}>

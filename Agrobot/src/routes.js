@@ -24,6 +24,9 @@ export default App = () => (
           borderBottomColor: '#000',
           borderBottomWidth: 2,
         },
+        drawerType: 'slide',
+        gestureEnabled: false,
+        swipeEnabled: false,
       }}>
       <Drawer.Screen name="Controle" component={Control} />
       <Drawer.Screen name="Precisão de controle" component={PrecisionControl} />

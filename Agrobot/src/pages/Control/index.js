@@ -14,11 +14,10 @@ import {CommunicationContext} from '../../context/communication';
 import Style from './style.js';
 import {useFocusEffect} from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
+import Header from '../../component/Header';
 let heightScreen = Dimensions.get('window').height;
 export default function Control({navigation}) {
   const {
-    setSpeed,
-    setSteer,
     setLimit,
     limit,
     handleModuleRobotSwitch,
@@ -30,7 +29,7 @@ export default function Control({navigation}) {
     setAutoMode,
   } = React.useContext(DataContext);
 
-  const {connected} = React.useContext(CommunicationContext);
+  const {connected, sendControl} = React.useContext(CommunicationContext);
 
   useFocusEffect(() => {
     Orientation.lockToPortrait();
@@ -46,15 +45,7 @@ export default function Control({navigation}) {
   return (
     <>
       <View style={Style.container}>
-        <View style={Style.header}>
-          <ButtonIcon
-            name="bars"
-            size={25}
-            onPress={navigation.openDrawer}
-            style={Style.buttonMenu}
-          />
-          <ConnectedIndicator connected={connected} />
-        </View>
+        <Header navigation={navigation} />
         <View style={Style.joystickContainer}>
           <Joystick
             backgroundColor={'#fff'}
@@ -63,9 +54,15 @@ export default function Control({navigation}) {
             height={heightScreen * 0.3}
             width={heightScreen * 0.3}
             onValue={(x, y) => {
-              console.log(x, y);
-              setSpeed(y);
-              setSteer(x);
+              console.log('Control:', x, y);
+              sendControl({
+                limit: limit / 100,
+                moduleRobot,
+                autoMode,
+                power,
+                steer: y,
+                speed: x,
+              });
             }}
           />
         </View>

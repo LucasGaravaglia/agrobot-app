@@ -1,12 +1,17 @@
 import {ScrollView, View, TextInput, Text, Alert} from 'react-native';
 import React from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import Orientation from 'react-native-orientation';
 
 import {DataContext} from '../../context/dataContext';
-
 import Button from '../../component/Button';
 import Style from './style';
+import Header from '../../component/Header';
 
 export default function SetAutoParameters({navigation}) {
+  useFocusEffect(() => {
+    Orientation.lockToPortrait();
+  });
   const {
     updateModeData,
     autoModeData,
@@ -55,6 +60,7 @@ export default function SetAutoParameters({navigation}) {
 
   return (
     <>
+      <Header navigation={navigation} />
       <View style={Style.container}>
         <Text style={Style.title}>Parâmetros</Text>
         <View style={Style.containerInput}>

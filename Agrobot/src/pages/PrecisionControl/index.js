@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState, useRef} from 'react';
 import {Text, View} from 'react-native';
 import Orientation from 'react-native-orientation';
 import Joystick from 'multitouchjoystick';
@@ -11,33 +11,27 @@ import Style from './style.js';
 import {useFocusEffect} from '@react-navigation/native';
 import {CommunicationContext} from '../../context/communication';
 import ConnectedIndicator from '../../component/ConnectedIndicator';
+import Header from '../../component/Header';
 
 export default function Control({navigation}) {
   useFocusEffect(() => {
     Orientation.lockToLandscape();
   });
   const {
-    setSpeed,
-    setSteer,
     setLimit,
     limit,
     handlePowerSwitch,
     power,
+    moduleRobot,
+    autoMode,
   } = React.useContext(DataContext);
-  const {connected} = React.useContext(CommunicationContext);
-
+  const {connected, sendControl} = React.useContext(CommunicationContext);
+  const speed = useRef(0);
+  const steer = useRef(0);
   return (
     <>
       <View style={Style.container}>
-        <View style={Style.header}>
-          <ButtonIcon
-            name="bars"
-            size={25}
-            onPress={navigation.openDrawer}
-            style={Style.buttonMenu}
-          />
-          <ConnectedIndicator connected={connected} />
-        </View>
+        <Header navigation={navigation} />
         <View style={Style.containerContent}>
           <View style={Style.groupControllerContainer}>
             <View style={Style.joystickContainer}>
@@ -48,7 +42,16 @@ export default function Control({navigation}) {
                 height={1}
                 width={200}
                 onValue={(x, y) => {
-                  setSteer(x);
+                  console.log(x);
+                  steer.current = x * -1;
+                  sendControl({
+                    limit: limit / 100,
+                    moduleRobot,
+                    autoMode,
+                    power,
+                    steer: steer.current,
+                    speed: speed.current,
+                  });
                 }}
               />
             </View>
@@ -75,7 +78,16 @@ export default function Control({navigation}) {
                 height={200}
                 width={1}
                 onValue={(x, y) => {
-                  setSpeed(y);
+                  console.log(y);
+                  speed.current = y * -1;
+                  sendControl({
+                    limit: limit / 100,
+                    moduleRobot,
+                    autoMode,
+                    power,
+                    steer: steer.current,
+                    speed: speed.current,
+                  });
                 }}
               />
             </View>
