@@ -60,8 +60,8 @@ export default function Control({navigation}) {
                 moduleRobot,
                 autoMode,
                 power,
-                steer: y,
-                speed: x,
+                steer: x * -1,
+                speed: y * -1,
               });
             }}
           />

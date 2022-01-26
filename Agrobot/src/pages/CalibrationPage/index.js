@@ -82,7 +82,7 @@ export default function CalibrationPage({navigation}) {
               console.log('Control:', x);
               sendWheelAdjustment({
                 wheel: actualWheel(),
-                direction: x,
+                direction: x * -1,
               });
             }}
           />
