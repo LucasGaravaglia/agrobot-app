@@ -8,6 +8,7 @@ import Communication from './pages/Communication';
 import SetAutoParameters from './pages/SetAutoParameters';
 import LoadingPage from './pages/LoadingPage';
 import PrecisionControl from './pages/PrecisionControl';
+import CalibrationPage from './pages/CalibrationPage';
 
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +32,7 @@ export default App = () => (
       <Drawer.Screen name="Controle" component={Control} />
       <Drawer.Screen name="Precisão de controle" component={PrecisionControl} />
       <Drawer.Screen name="Comunicação" component={Communication} />
+      <Drawer.Screen name="Calibração" component={CalibrationPage} />
       <Drawer.Screen
         name="Configuração parâmetros"
         component={SetAutoParameters}

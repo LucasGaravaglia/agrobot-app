@@ -16,6 +16,12 @@ export function CommunicationProvider({children}) {
     }
   };
 
+  const sendWheelAdjustment = (data) => {
+    if (connected) {
+      client.emit('manual_wheel_adjustment_update', data);
+    }
+  };
+
   const sendAutoModeParams = (data) => {
     if (connected) {
       client.emit('auto_mode_params_update', data);
@@ -85,6 +91,7 @@ export function CommunicationProvider({children}) {
         updatePort,
         sendControl,
         connected,
+        sendWheelAdjustment,
       }}>
       {children}
     </CommunicationContext.Provider>

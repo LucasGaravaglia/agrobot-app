@@ -53,6 +53,18 @@ export default StyleSheet.create({
     width: 60,
     height: 60,
   },
+  buttonMenu: {
+    borderWidth: 0,
+    marginLeft: 8,
+    marginTop: 8,
+  },
+  header: {
+    width: widthScreen,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+  },
   joystickContainer: {
     backgroundColor: '#fff',
     height: heightScreen * 0.42,
