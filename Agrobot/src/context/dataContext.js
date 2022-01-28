@@ -1,20 +1,16 @@
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  useRef,
-  useContext,
-} from 'react';
+import React, {createContext, useState, useContext} from 'react';
 import {CommunicationContext} from './communication';
 
 export const DataContext = createContext({});
 
 export const DataContextProvider = ({children}) => {
-  const {sendControl, sendAutoModeParams, connected} = useContext(
-    CommunicationContext,
-  );
-  const [steer, setSteer] = useState(0);
-  const [speed, setSpeed] = useState(0);
+  const {
+    sendPowerMotor,
+    sendModuleIsActivated,
+    sendAutoModeActivated,
+    sendAutoModeParams,
+    connected,
+  } = useContext(CommunicationContext);
   const [limit, setLimit] = useState(50);
   const [power, setPower] = useState(false);
   const [autoMode, setAutoMode] = useState(false);
@@ -24,73 +20,45 @@ export const DataContextProvider = ({children}) => {
   const handleModuleRobotSwitch = () => {
     if (connected) {
       setModuleRobot(!moduleRobot);
-      handleAutoModeData();
+      sendModuleIsActivated(!moduleRobot);
+      console.log(
+        `LOG: Modulo do robô foi ${!moduleRobot ? 'ativado' : 'desativado'}`,
+      );
     }
   };
 
   const handlePowerSwitch = () => {
     if (connected) {
       setPower(!power);
+      sendPowerMotor(!power);
+      console.log(
+        `LOG: Motores do robô foram ${!power ? 'ligados' : 'desligados'}`,
+      );
     }
   };
 
-  const handleAutoModeSwitch = () => {
+  const handleAutoModeSwitch = (data) => {
     if (connected) {
-      handleAutoModeData(true);
-      setAutoMode(!autoMode);
+      if (data) {
+        setAutoMode(!autoMode);
+        sendAutoModeActivated(!autoMode);
+        console.log(
+          `LOG: Modo autônomo foi ${!autoMode ? 'ligado' : 'desligado'}`,
+        );
+      } else {
+        setAutoMode(false);
+        sendAutoModeActivated(false);
+        console.log(
+          `LOG: Modo autônomo foi ${!autoMode ? 'ligado' : 'desligado'}`,
+        );
+      }
     }
   };
 
-  function handleSendData() {
-    sendControl({
-      limit: limit / 100,
-      moduleRobot,
-      autoMode,
-      power,
-      steer,
-      speed,
-    });
-  }
-
-  function handleAutoModeData(flag = false) {
-    var obj = {};
-    if (flag) {
-      obj = {
-        limit: autoModeData.limit,
-        steer: autoModeData.steer,
-        speed: autoModeData.speed,
-        correctionsMovements: autoModeData.correctionsMovements,
-        correctionFactor: autoModeData.correctionFactor,
-        detectDistance: autoModeData.detectDistance,
-        moveTime: autoModeData.moveTime,
-        stopTime: autoModeData.stopTime,
-        moduleRobot: moduleRobot,
-        autoMode: !autoMode,
-      };
-    } else {
-      obj = {
-        limit: autoModeData.limit,
-        steer: autoModeData.steer,
-        speed: autoModeData.speed,
-        correctionsMovements: autoModeData.correctionsMovements,
-        correctionFactor: autoModeData.correctionFactor,
-        detectDistance: autoModeData.detectDistance,
-        moveTime: autoModeData.moveTime,
-        stopTime: autoModeData.stopTime,
-        moduleRobot: moduleRobot,
-        autoMode: autoMode,
-      };
-    }
-    setAutoModeData(obj);
-  }
-
-  useEffect(() => {
-    handleSendData();
-  }, [limit, moduleRobot, power, speed, steer]);
-
-  useEffect(() => {
-    sendAutoModeParams(autoModeData);
-  }, [autoMode]);
+  const updateAutoModeData = (data) => {
+    setAutoModeData(data);
+    sendAutoModeParams(data);
+  };
 
   return (
     <DataContext.Provider
@@ -103,11 +71,8 @@ export const DataContextProvider = ({children}) => {
         limit,
         autoMode,
         power,
-        setSteer,
-        setSpeed,
-        send: handleSendData,
         autoModeData,
-        setAutoMode,
+        setAutoModeData: updateAutoModeData,
       }}>
       {children}
     </DataContext.Provider>
@@ -115,14 +80,9 @@ export const DataContextProvider = ({children}) => {
 };
 
 const defaultAutoModeData = {
-  limit: '50',
-  steer: '-2',
-  speed: '-26',
   correctionsMovements: '5',
   correctionFactor: '15',
   detectDistance: '1.5',
   moveTime: '0',
   stopTime: '0',
-  moduleRobot: false,
-  autoMode: false,
 };

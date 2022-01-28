@@ -11,21 +11,31 @@ export function CommunicationProvider({children}) {
   const [client, setClient] = useState(io(''));
 
   const sendControl = (data) => {
-    if (connected) {
-      client.emit('control_update', data);
-    }
+    if (connected) client.emit('control_update', data);
   };
 
   const sendWheelAdjustment = (data) => {
-    if (connected) {
-      client.emit('manual_wheel_adjustment_update', data);
-    }
+    if (connected) client.emit('manual_wheel_adjustment_update', data);
+  };
+
+  const sendPowerMotor = (data) => {
+    if (connected) client.emit('power_motor', data);
+  };
+
+  const sendModuleIsActivated = (data) => {
+    if (connected) client.emit('module_activated', data);
   };
 
   const sendAutoModeParams = (data) => {
-    if (connected) {
-      client.emit('auto_mode_params_update', data);
-    }
+    if (connected) client.emit('auto_mode_params_update', data);
+  };
+
+  const sendAutoModeActivated = (data) => {
+    if (connected) client.emit('auto_mode_activated', data);
+  };
+
+  const sendTypeModuleControl = (data) => {
+    if (connected) client.emit('type_module_control', data);
   };
 
   const loadInitialConfig = async () => {
@@ -84,9 +94,13 @@ export function CommunicationProvider({children}) {
         port,
         updateAddress,
         updatePort,
-        sendControl,
         connected,
+        sendControl,
         sendWheelAdjustment,
+        sendPowerMotor,
+        sendModuleIsActivated,
+        sendAutoModeActivated,
+        sendTypeModuleControl,
       }}>
       {children}
     </CommunicationContext.Provider>

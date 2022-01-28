@@ -10,22 +10,16 @@ import {DataContext} from '../../context/dataContext';
 import Style from './style.js';
 import {useFocusEffect} from '@react-navigation/native';
 import {CommunicationContext} from '../../context/communication';
-import ConnectedIndicator from '../../component/ConnectedIndicator';
 import Header from '../../component/Header';
 
 export default function Control({navigation}) {
   useFocusEffect(() => {
     Orientation.lockToLandscape();
   });
-  const {
-    setLimit,
-    limit,
-    handlePowerSwitch,
-    power,
-    moduleRobot,
-    autoMode,
-  } = React.useContext(DataContext);
-  const {connected, sendControl} = React.useContext(CommunicationContext);
+  const {setLimit, limit, handlePowerSwitch, power} = React.useContext(
+    DataContext,
+  );
+  const {sendControl} = React.useContext(CommunicationContext);
   const speed = useRef(0);
   const steer = useRef(0);
   return (
@@ -46,9 +40,6 @@ export default function Control({navigation}) {
                   steer.current = x * -1;
                   sendControl({
                     limit: limit / 100,
-                    moduleRobot,
-                    autoMode,
-                    power,
                     steer: steer.current,
                     speed: speed.current,
                   });
@@ -82,9 +73,6 @@ export default function Control({navigation}) {
                   speed.current = y * -1;
                   sendControl({
                     limit: limit / 100,
-                    moduleRobot,
-                    autoMode,
-                    power,
                     steer: steer.current,
                     speed: speed.current,
                   });

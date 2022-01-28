@@ -20,6 +20,8 @@ target 'Agrobot' do
 
   pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
+
   target 'AgrobotTests' do
     inherit! :complete
     # Pods for testing

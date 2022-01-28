@@ -8,6 +8,7 @@ export default StyleSheet.create({
     textShadowColor: '#999',
     textShadowOffset: {width: 1, height: 2},
     textShadowRadius: 2,
+    padding: 20,
   },
   container: {
     flex: 1,
@@ -15,7 +16,6 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     backgroundColor: '#fff',
-    paddingTop: heightScreen * 0.05,
   },
   inputText: {
     borderWidth: 0,

@@ -82,7 +82,6 @@ export default function CalibrationPage({navigation}) {
             height={1}
             width={heightScreen * 0.3}
             onValue={(x, y) => {
-              console.log('Controlaaaaaaaaaaaaaaaaa:', x);
               sendWheelAdjustment({
                 wheel: actualWheel(),
                 direction: x * -1,

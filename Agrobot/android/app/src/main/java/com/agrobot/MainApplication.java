@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.picker.RNCPickerPackage;
 import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 import com.facebook.react.bridge.JSIModulePackage; // <- add

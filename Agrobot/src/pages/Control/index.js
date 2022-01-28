@@ -26,7 +26,6 @@ export default function Control({navigation}) {
     power,
     moduleRobot,
     autoMode,
-    setAutoMode,
   } = React.useContext(DataContext);
 
   const {connected, sendControl} = React.useContext(CommunicationContext);
@@ -57,9 +56,6 @@ export default function Control({navigation}) {
               console.log('Control:', x, y);
               sendControl({
                 limit: limit / 100,
-                moduleRobot,
-                autoMode,
-                power,
                 steer: x * -1,
                 speed: y * -1,
               });
@@ -101,7 +97,7 @@ export default function Control({navigation}) {
             style={Style.buttonStop}
             styleText={Style.textButtonStop}
             onPress={() => {
-              setAutoMode(false);
+              handleAutoModeSwitch(false);
             }}>
             Parar
           </Button>

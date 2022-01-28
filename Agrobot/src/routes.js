@@ -5,13 +5,14 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import Control from './pages/Control';
 import Communication from './pages/Communication';
-import SetAutoParameters from './pages/SetAutoParameters';
+import SetParameters from './pages/SetParameters';
 import LoadingPage from './pages/LoadingPage';
 import PrecisionControl from './pages/PrecisionControl';
 import CalibrationPage from './pages/CalibrationPage';
 
 const Drawer = createDrawerNavigator();
 
+console.disableYellowBox = true;
 export default App = () => (
   <NavigationContainer>
     <Drawer.Navigator
@@ -33,10 +34,7 @@ export default App = () => (
       <Drawer.Screen name="Precisão de controle" component={PrecisionControl} />
       <Drawer.Screen name="Comunicação" component={Communication} />
       <Drawer.Screen name="Calibração" component={CalibrationPage} />
-      <Drawer.Screen
-        name="Configuração parâmetros"
-        component={SetAutoParameters}
-      />
+      <Drawer.Screen name="Configuração parâmetros" component={SetParameters} />
       <Drawer.Screen name="Instruções" component={LoadingPage} />
     </Drawer.Navigator>
   </NavigationContainer>

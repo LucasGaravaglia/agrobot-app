@@ -1,5 +1,5 @@
 import {ScrollView, View, TextInput, Text, Alert} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
 
@@ -7,8 +7,10 @@ import {DataContext} from '../../context/dataContext';
 import Button from '../../component/Button';
 import Style from './style';
 import Header from '../../component/Header';
+import {Picker} from '@react-native-community/picker';
+import {CommunicationContext} from '../../context/communication';
 
-export default function SetAutoParameters({navigation}) {
+export default function SetParameters({navigation}) {
   useFocusEffect(() => {
     Orientation.lockToPortrait();
   });
@@ -16,85 +18,44 @@ export default function SetAutoParameters({navigation}) {
     updateModeData,
     autoModeData,
     autoMode,
+    setAutoMode,
     moduleRobot,
+    setAutoModeData,
   } = React.useContext(DataContext);
 
-  const limit = React.useRef(autoModeData.limit);
-  const steer = React.useRef(autoModeData.steer);
-  const speed = React.useRef(autoModeData.speed);
-  const correctionsMovements = React.useRef(autoModeData.correctionsMovements);
-  const correctionFactor = React.useRef(autoModeData.correctionFactor);
-  const detectDistance = React.useRef(autoModeData.detectDistance);
-  const moveTime = React.useRef(autoModeData.moveTime);
-  const stopTime = React.useRef(autoModeData.stopTime);
+  const {sendTypeModuleControl} = React.useContext(CommunicationContext);
 
-  React.useEffect(() => {
-    if (autoModeData) {
-      limit.current = autoModeData.limit;
-      steer.current = autoModeData.steer;
-      speed.current = autoModeData.speed;
-      correctionsMovements.current = autoModeData.correctionsMovements;
-      correctionFactor.current = autoModeData.correctionFactor;
-      detectDistance.current = autoModeData.detectDistance;
-      moveTime.current = autoModeData.moveTime;
-      stopTime.current = autoModeData.stopTime;
-    }
-  }, [autoModeData]);
+  const correctionsMovements = React.useRef(5);
+  const correctionFactor = React.useRef(15);
+  const detectDistance = React.useRef(1.5);
+  const moveTime = React.useRef(0);
+  const stopTime = React.useRef(0);
 
-  function handleSave() {
-    const obj = {
-      limit: limit.current,
-      steer: steer.current,
-      speed: speed.current,
+  const [selectedValue, setSelectedValue] = useState(1);
+
+  const onSave = () => {
+    setAutoModeData({
       correctionsMovements: correctionsMovements.current,
       correctionFactor: correctionFactor.current,
       detectDistance: detectDistance.current,
       moveTime: moveTime.current,
       stopTime: stopTime.current,
-      moduleRobot: moduleRobot,
-      autoMode: autoMode,
-    };
-    updateModeData(obj);
+    });
     navigation.navigate('Controle');
-  }
-
+  };
   return (
     <>
-      <Header navigation={navigation} />
       <View style={Style.container}>
+        <Header navigation={navigation} />
         <Text style={Style.title}>Parâmetros</Text>
         <View style={Style.containerInput}>
-          <TextInput
-            style={Style.inputText}
-            placeholder={'Limite: ' + autoModeData.limit}
-            onChangeText={(text) => {
-              limit.current = text;
-            }}
-            keyboardType="numeric"
-          />
-          <TextInput
-            style={Style.inputText}
-            placeholder={'Direção: ' + autoModeData.steer}
-            onEndEditing={(text) => {
-              steer.current = text;
-            }}
-            keyboardType="numeric"
-          />
-          <TextInput
-            style={Style.inputText}
-            placeholder={'speed: ' + autoModeData.speed}
-            onEndEditing={(text) => {
-              speed.current = text;
-            }}
-            keyboardType="numeric"
-          />
           <TextInput
             style={Style.inputText}
             placeholder={
               'N de movimentos de correção: ' +
               autoModeData.correctionsMovements
             }
-            onEndEditing={(text) => {
+            onChangeText={(text) => {
               correctionsMovements.current = text;
             }}
             keyboardType="numeric"
@@ -102,7 +63,7 @@ export default function SetAutoParameters({navigation}) {
           <TextInput
             style={Style.inputText}
             placeholder={'Fator de correção: ' + autoModeData.correctionFactor}
-            onEndEditing={(text) => {
+            onChangeText={(text) => {
               correctionFactor.current = text;
             }}
             keyboardType="numeric"
@@ -110,7 +71,7 @@ export default function SetAutoParameters({navigation}) {
           <TextInput
             style={Style.inputText}
             placeholder={'Distancia de colisão: ' + autoModeData.detectDistance}
-            onEndEditing={(text) => {
+            onChangeText={(text) => {
               detectDistance.current = text;
             }}
             keyboardType="numeric"
@@ -118,7 +79,7 @@ export default function SetAutoParameters({navigation}) {
           <TextInput
             style={Style.inputText}
             placeholder={'Andar por(seg): ' + autoModeData.moveTime}
-            onEndEditing={(text) => {
+            onChangeText={(text) => {
               moveTime.current = text;
             }}
             keyboardType="numeric"
@@ -126,16 +87,27 @@ export default function SetAutoParameters({navigation}) {
           <TextInput
             style={Style.inputText}
             placeholder={'Parar por(Seg): ' + autoModeData.stopTime}
-            onEndEditing={(text) => {
+            onChangeText={(text) => {
               stopTime.current = text;
             }}
             keyboardType="numeric"
           />
+          <Picker
+            style={Style.inputText}
+            selectedValue={selectedValue}
+            onValueChange={(itemValue, itemIndex) => {
+              setSelectedValue(itemValue);
+              sendTypeModuleControl(itemValue);
+            }}>
+            <Picker.Item label="Modo A" value={0} />
+            <Picker.Item label="Modo B" value={1} />
+            <Picker.Item label="Modo C" value={-1} />
+          </Picker>
         </View>
         <Button
           style={Style.buttonSave}
           styleText={Style.textButtonSave}
-          onPress={handleSave}>
+          onPress={onSave}>
           Salvar
         </Button>
       </View>
