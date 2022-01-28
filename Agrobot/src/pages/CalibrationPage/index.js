@@ -2,12 +2,14 @@ import {View, Switch, Dimensions} from 'react-native';
 import React, {useState} from 'react';
 import Joystick from 'multitouchjoystick';
 
-import {DataContext} from '../../context/dataContext';
 import {CommunicationContext} from '../../context/communication';
 
 import Style from './style.js';
 import Header from '../../component/Header';
 import CustomSwitch from '../../component/Switch';
+import {useFocusEffect} from '@react-navigation/native';
+import Orientation from 'react-native-orientation';
+
 let heightScreen = Dimensions.get('window').height;
 
 export default function CalibrationPage({navigation}) {
@@ -16,10 +18,11 @@ export default function CalibrationPage({navigation}) {
   const [wheel2, setWheel2] = useState(false);
   const [wheel3, setWheel3] = useState(false);
   const [wheel4, setWheel4] = useState(false);
-  const handlerSwitch = (data) => {
-    if (data == wheel) setWheel(0);
-    setWheel(data);
-  };
+
+  useFocusEffect(() => {
+    Orientation.lockToPortrait();
+  });
+
   const actualWheel = () => {
     if (wheel1) return 1;
     if (wheel2) return 2;
@@ -79,7 +82,7 @@ export default function CalibrationPage({navigation}) {
             height={1}
             width={heightScreen * 0.3}
             onValue={(x, y) => {
-              console.log('Control:', x);
+              console.log('Controlaaaaaaaaaaaaaaaaa:', x);
               sendWheelAdjustment({
                 wheel: actualWheel(),
                 direction: x * -1,

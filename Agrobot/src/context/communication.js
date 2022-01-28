@@ -60,11 +60,6 @@ export function CommunicationProvider({children}) {
       console.log('Cliente conectado');
     });
 
-    newClient.on('data_from_robot', (data) => {
-      console.log('Message from robot');
-      console.log(data);
-    });
-
     setClient(newClient);
   };
 
