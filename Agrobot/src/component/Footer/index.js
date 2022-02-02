@@ -13,11 +13,11 @@ import constMunicipalImg from './resources/municipal.png';
 export default function footer() {
   return (
     <View View style={Styles.containerLogoVersion}>
-      <View style={Styles.logosView}>
+      {/* <View style={Styles.logosView}>
         <Image style={Styles.logoReceita} source={constReceitaImg} />
         <Image style={Styles.logoMunicipal} source={constMunicipalImg} />
         <Image style={Styles.logoHmcc} source={constHmccImg} />
-      </View>
+      </View> */}
       <View style={Styles.logosView}>
         <Image style={Styles.logoLabiot} source={constLabiotImg} />
         <Image style={Styles.logoUnioeste} source={constUnioesteImg} />

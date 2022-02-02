@@ -47,7 +47,6 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'flex-end',
     flexDirection: 'column',
-    height: heightScreen * 0.18,
     width: '100%',
   },
 });

@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useState, useRef} from 'react';
-import {Text, View} from 'react-native';
+import {PermissionsAndroid, Text, View} from 'react-native';
 import Orientation from 'react-native-orientation';
 import Joystick from 'multitouchjoystick';
 
@@ -16,9 +16,14 @@ export default function Control({navigation}) {
   useFocusEffect(() => {
     Orientation.lockToLandscape();
   });
-  const {setLimit, limit, handlePowerSwitch, power} = React.useContext(
-    DataContext,
-  );
+  const {
+    setLimit,
+    limit,
+    handlePowerSwitch,
+    power,
+    moduleRobot,
+    handleModuleRobotSwitch,
+  } = React.useContext(DataContext);
   const {sendControl} = React.useContext(CommunicationContext);
   const speed = useRef(0);
   const steer = useRef(0);
@@ -34,21 +39,18 @@ export default function Control({navigation}) {
                 ballColor="rgba(0, 0, 0, 1)"
                 ballRadius={40}
                 height={1}
-                width={200}
+                width={250}
                 onValue={(x, y) => {
-                  console.log(x);
                   steer.current = x * -1;
-                  sendControl({
-                    limit: limit / 100,
-                    steer: steer.current,
-                    speed: speed.current,
-                  });
+                  console.log(steer.current);
+                  if (power)
+                    sendControl({
+                      limit: limit / 100,
+                      steer: steer.current,
+                      speed: speed.current,
+                    });
                 }}
               />
-            </View>
-            <View style={Style.textSlider}>
-              <Text>{limit}</Text>
-              <Slider setValue={setLimit} value={limit} />
             </View>
           </View>
           <View style={Style.buttonsContainer}>
@@ -59,6 +61,17 @@ export default function Control({navigation}) {
               onPress={handlePowerSwitch}
               style={Style.buttonIcon}
             />
+            <ButtonIcon
+              name="puzzle-piece"
+              size={30}
+              color={moduleRobot ? '#0f0' : '#ff6666'}
+              onPress={handleModuleRobotSwitch}
+              style={Style.buttonIcon}
+            />
+            <View style={Style.textSlider}>
+              <Text>{limit}</Text>
+              <Slider setValue={setLimit} value={limit} />
+            </View>
           </View>
           <View style={Style.groupControllerContainer}>
             <View style={Style.joystickContainer}>
@@ -66,22 +79,19 @@ export default function Control({navigation}) {
                 backgroundColor={'#000'}
                 ballColor="rgba(0, 0, 0, 1)"
                 ballRadius={40}
-                height={200}
+                height={250}
                 width={1}
                 onValue={(x, y) => {
-                  console.log(y);
                   speed.current = y * -1;
-                  sendControl({
-                    limit: limit / 100,
-                    steer: steer.current,
-                    speed: speed.current,
-                  });
+                  console.log(speed.current);
+                  if (power)
+                    sendControl({
+                      limit: limit / 100,
+                      steer: steer.current,
+                      speed: speed.current,
+                    });
                 }}
               />
-            </View>
-            <View style={Style.textSlider}>
-              <Text>{limit}</Text>
-              <Slider setValue={setLimit} value={limit} />
             </View>
           </View>
         </View>

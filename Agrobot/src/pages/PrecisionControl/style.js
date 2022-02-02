@@ -16,8 +16,8 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
   },
   joystickContainer: {
-    height: 200,
-    width: 200,
+    height: 250,
+    width: 250,
     alignItems: 'center',
     flexDirection: 'column-reverse',
     justifyContent: 'space-around',
@@ -39,11 +39,12 @@ export default StyleSheet.create({
     // backgroundColor: '#fff',
   },
   buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    padding: '2%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '1%',
     width: 80,
-    // backgroundColor: '#fff',
+    height: 300,
   },
   buttonIcon: {
     width: 60,
@@ -63,5 +64,10 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     backgroundColor: '#fff',
+  },
+  text: {
+    fontFamily: 'sans-serif-light',
+    fontWeight: 'bold',
+    fontSize: 9,
   },
 });

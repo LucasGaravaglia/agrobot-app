@@ -16,7 +16,7 @@ console.disableYellowBox = true;
 export default App = () => (
   <NavigationContainer>
     <Drawer.Navigator
-      initialRouteName="Controle"
+      initialRouteName="Controle de Precisão"
       drawerStyle={{backgroundColor: '#FFFFFF'}}
       screenOptions={{
         drawerActiveBackgroundColor: '#efefef',
@@ -30,12 +30,12 @@ export default App = () => (
         gestureEnabled: false,
         swipeEnabled: false,
       }}>
+      <Drawer.Screen name="Controle principal" component={PrecisionControl} />
       <Drawer.Screen name="Controle" component={Control} />
-      <Drawer.Screen name="Precisão de controle" component={PrecisionControl} />
       <Drawer.Screen name="Comunicação" component={Communication} />
       <Drawer.Screen name="Calibração" component={CalibrationPage} />
-      <Drawer.Screen name="Configuração parâmetros" component={SetParameters} />
-      <Drawer.Screen name="Instruções" component={LoadingPage} />
+      <Drawer.Screen name="Configuração" component={SetParameters} />
+      {/* <Drawer.Screen name="Instruções" component={LoadingPage} /> */}
     </Drawer.Navigator>
   </NavigationContainer>
 );
