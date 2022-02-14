@@ -31,7 +31,7 @@ export default function SetParameters({navigation}) {
   const moveTime = React.useRef(0);
   const stopTime = React.useRef(0);
 
-  const [selectedValue, setSelectedValue] = useState(1);
+  const [selectedValue, setSelectedValue] = useState(0);
 
   const onSave = () => {
     setAutoModeData({
@@ -41,7 +41,7 @@ export default function SetParameters({navigation}) {
       moveTime: moveTime.current,
       stopTime: stopTime.current,
     });
-    navigation.navigate('Controle');
+    navigation.navigate('Controle principal');
   };
   return (
     <>

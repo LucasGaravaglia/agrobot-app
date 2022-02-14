@@ -45,7 +45,7 @@ export default function Communication({navigation}) {
           style={Style.buttonSave}
           styleText={Style.textButtonSave}
           onPress={() => {
-            navigation.navigate('Controle');
+            navigation.navigate('Controle principal');
           }}>
           Salvar
         </Button>
