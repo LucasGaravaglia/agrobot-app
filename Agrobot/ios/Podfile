@@ -22,8 +22,6 @@ target 'Agrobot' do
 
   pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
 
-  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
-
   target 'AgrobotTests' do
     inherit! :complete
     # Pods for testing
