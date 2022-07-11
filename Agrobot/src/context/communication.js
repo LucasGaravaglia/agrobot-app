@@ -35,7 +35,7 @@ export function CommunicationProvider({children}) {
   };
 
   const sendTypeModuleControl = (data) => {
-    if (connected) client.emit('type_module_control', data);
+    if (connected) client.emit('control_mode_update', data);
   };
 
   const loadInitialConfig = async () => {
@@ -76,9 +76,7 @@ export function CommunicationProvider({children}) {
   useEffect(() => {
     loadInitialConfig();
     return () => {
-      if (client.connected) {
-        client.close();
-      }
+      if (client.connected) client.close();
     };
   }, []);
 

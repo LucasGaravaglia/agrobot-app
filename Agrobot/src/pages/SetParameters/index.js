@@ -31,7 +31,7 @@ export default function SetParameters({navigation}) {
   const moveTime = React.useRef(0);
   const stopTime = React.useRef(0);
 
-  const [selectedValue, setSelectedValue] = useState(0);
+  const [selectedValue, setSelectedValue] = useState('');
 
   const onSave = () => {
     setAutoModeData({
@@ -99,9 +99,9 @@ export default function SetParameters({navigation}) {
               setSelectedValue(itemValue);
               sendTypeModuleControl(itemValue);
             }}>
-            <Picker.Item label="Modo A" value={0} />
-            <Picker.Item label="Modo B" value={1} />
-            <Picker.Item label="Modo C" value={-1} />
+            <Picker.Item label="Modo A" value={'A'} />
+            <Picker.Item label="Modo B" value={'B'} />
+            <Picker.Item label="Modo C" value={'C'} />
           </Picker>
         </View>
         <Button

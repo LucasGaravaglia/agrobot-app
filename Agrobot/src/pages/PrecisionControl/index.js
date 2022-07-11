@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useState, useRef} from 'react';
-import {PermissionsAndroid, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import Orientation from 'react-native-orientation';
 import Joystick from 'multitouchjoystick';
 
@@ -27,6 +27,7 @@ export default function Control({navigation}) {
   const {sendControl} = React.useContext(CommunicationContext);
   const speed = useRef(0);
   const steer = useRef(0);
+
   return (
     <>
       <View style={Style.container}>
@@ -42,7 +43,7 @@ export default function Control({navigation}) {
                 width={250}
                 onValue={(x, y) => {
                   steer.current = x * -1;
-                  console.log(steer.current);
+                  // console.log(steer.current);
                   if (power)
                     sendControl({
                       limit: limit / 100,
@@ -83,7 +84,7 @@ export default function Control({navigation}) {
                 width={1}
                 onValue={(x, y) => {
                   speed.current = y * -1;
-                  console.log(speed.current);
+                  // console.log(speed.current);
                   if (power)
                     sendControl({
                       limit: limit / 100,
