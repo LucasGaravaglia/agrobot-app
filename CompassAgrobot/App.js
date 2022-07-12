@@ -43,13 +43,11 @@ const App = () => {
   }, []);
 
   const emit = () => {
-    console.log('uhasuash');
-
     client.emit('compass_update', {data: 'data'});
   };
   return (
     <View>
-      <Text onPress={emit}>asasa $</Text>
+      <Text onPress={emit}>Bússola $</Text>
     </View>
   );
 };
