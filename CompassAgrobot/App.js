@@ -7,7 +7,7 @@ import {
   SensorTypes,
 } from 'react-native-sensors';
 import LPF from 'lpf';
-setUpdateIntervalForType(SensorTypes.magnetometer, 3000);
+setUpdateIntervalForType(SensorTypes.magnetometer, 500);
 
 const App = () => {
   const connected = useRef(false);
