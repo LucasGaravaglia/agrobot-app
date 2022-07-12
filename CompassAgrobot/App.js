@@ -13,7 +13,10 @@ const App = () => {
     } else {
       angle = (Math.atan2(y, x) + 2 * Math.PI) * (180 / Math.PI);
     }
-    // angle = angle - 90;
+    // angle = angle - 90 >= 0 ? angle - 90 : angle + 271;
+    angle = angle - 84;
+    if (angle < 0) angle = 360 + angle;
+    if (angle >= 90 && angle <= 300) angle = angle - 16;
     console.log(Math.round(LPF.next(angle)));
   });
 
