@@ -1,37 +1,44 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, TextInput} from 'react-native';
 import io from 'socket.io-client';
 import {
   magnetometer,
   setUpdateIntervalForType,
   SensorTypes,
+  gyroscope,
 } from 'react-native-sensors';
 import LPF from 'lpf';
-setUpdateIntervalForType(SensorTypes.magnetometer, 500);
+setUpdateIntervalForType(SensorTypes.magnetometer, 300);
+setUpdateIntervalForType(SensorTypes.gyroscope, 300);
 
 const App = () => {
   const connected = useRef(false);
-
-  const subscription = magnetometer.subscribe(({x, y, z, timestamp}) => {
-    let angle;
-    if (Math.atan2(y, x) >= 0) {
+  const subscriptionMagnetometer = magnetometer.subscribe(
+    ({x, y, z, timestamp}) => {
+      let angle;
       angle = Math.atan2(y, x) * (180 / Math.PI);
-    } else {
-      angle = (Math.atan2(y, x) + 2 * Math.PI) * (180 / Math.PI);
-    }
-    angle = angle - 84;
-    if (angle < 0) angle = 360 + angle;
-    if (angle >= 90 && angle <= 300) angle = angle - 16;
-    // console.log(Math.round(LPF.next(angle)));
+      angle = angle - 84;
+      if (angle < 0) angle = 360 + angle;
+      // if (angle >= 90 && angle <= 300) angle = angle - 16;
+      console.log(Math.round(LPF.next(angle)));
+      if (connected.current) {
+        client.emit('compass_update', Math.round(LPF.next(angle)));
+      }
+    },
+  );
+
+  const subscriptionGyroscope = gyroscope.subscribe(({x, y, z, timestamp}) => {
     if (connected.current) {
-      client.emit('compass_update', Math.round(LPF.next(angle)));
+      client.emit('gyroscope_update', z);
     }
   });
+
   const [client, setClient] = useState(io(''));
+  const [ip, setIp] = useState('http://192.168.1.2:3000');
 
   const connect = () => {
     client.close();
-    const newClient = io('http://192.168.1.2:3000');
+    const newClient = io(ip);
     newClient.on('disconnect', () => {
       connected.current = false;
       console.log('Cliente desconectado');
@@ -63,6 +70,15 @@ const App = () => {
         }}>
         Bússola
       </Text>
+
+      <TextInput
+        style={{width: 250, borderWidth: 1, borderRadius: 45}}
+        placeholder={'IP: http://192.168.1.2:3000'}
+        onEndEditing={text => {
+          if (text.nativeEvent.text != '') setIp(text.nativeEvent.text);
+        }}
+        keyboardType="string"
+      />
     </View>
   );
 };
