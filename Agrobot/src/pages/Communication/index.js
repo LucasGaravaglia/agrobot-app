@@ -10,9 +10,13 @@ import Header from '../../component/Header';
 import Style from './style';
 
 export default function Communication({navigation}) {
-  const {updateAddress, updatePort, port, address} = React.useContext(
-    CommunicationContext,
-  );
+  const {
+    updateAddress,
+    updatePort,
+    port,
+    address,
+    sendMission,
+  } = React.useContext(CommunicationContext);
   useFocusEffect(() => {
     Orientation.lockToPortrait();
   });
@@ -41,14 +45,24 @@ export default function Communication({navigation}) {
             keyboardType="numeric"
           />
         </View>
-        <Button
-          style={Style.buttonSave}
-          styleText={Style.textButtonSave}
-          onPress={() => {
-            navigation.navigate('Controle principal');
-          }}>
-          Salvar
-        </Button>
+        <View style={Style.containerButton}>
+          <Button
+            style={Style.buttonSendFile}
+            styleText={Style.textButtonSendFile}
+            onPress={() => {
+              sendMission();
+            }}>
+            Selecionar arquivo
+          </Button>
+          <Button
+            style={Style.buttonSave}
+            styleText={Style.textButtonSave}
+            onPress={() => {
+              navigation.navigate('Controle principal');
+            }}>
+            Salvar
+          </Button>
+        </View>
       </View>
     </>
   );

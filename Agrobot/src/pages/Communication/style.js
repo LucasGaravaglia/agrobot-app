@@ -15,7 +15,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    backgroundColor: '#fff',
   },
   inputText: {
     borderWidth: 0,
@@ -39,8 +38,25 @@ export default StyleSheet.create({
     shadowColor: '#888',
     backgroundColor: '#fff',
     elevation: 2,
+    borderWidth: 2,
   },
   textButtonSave: {
     fontSize: 15,
+  },
+  buttonSendFile: {
+    width: widthScreen * 0.5,
+    height: heightScreen * 0.05,
+    shadowRadius: 5,
+    shadowColor: '#888',
+    backgroundColor: '#fff',
+    elevation: 2,
+    borderWidth: 2,
+  },
+  textButtonSendFile: {
+    fontSize: 15,
+  },
+  containerButton: {
+    height: heightScreen * 0.3,
+    justifyContent: 'space-around',
   },
 });

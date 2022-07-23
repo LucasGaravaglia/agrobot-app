@@ -1,6 +1,7 @@
 import React, {useState, useEffect, createContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import io from 'socket.io-client';
+import DocumentPicker from 'react-native-document-picker';
 
 export const CommunicationContext = createContext({});
 
@@ -9,6 +10,24 @@ export function CommunicationProvider({children}) {
   const [port, setPort] = useState('3000');
   const [connected, setConnected] = useState(false);
   const [client, setClient] = useState(io(''));
+
+  const sendMission = () => {
+    if (connected) {
+      try {
+        DocumentPicker.pick({
+          type: [DocumentPicker.types.plainText],
+        }).then((data) => {
+          let frmData = new FormData();
+          frmData.append('file', data[0]);
+          // const blob = new Blob([data], { type: "text/json" });
+          console.log(frmData);
+          client.emit('mission_update', data);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   const sendControl = (data) => {
     if (connected) client.emit('control_update', data);
@@ -99,6 +118,7 @@ export function CommunicationProvider({children}) {
         sendModuleIsActivated,
         sendAutoModeActivated,
         sendTypeModuleControl,
+        sendMission,
       }}>
       {children}
     </CommunicationContext.Provider>

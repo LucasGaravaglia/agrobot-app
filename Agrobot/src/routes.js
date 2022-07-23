@@ -1,4 +1,7 @@
 import React from 'react';
+import {LogBox} from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
@@ -12,7 +15,6 @@ import CalibrationPage from './pages/CalibrationPage';
 
 const Drawer = createDrawerNavigator();
 
-console.disableYellowBox = true;
 export default App = () => (
   <NavigationContainer>
     <Drawer.Navigator
